@@ -1,11 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
 abstract class Militar {
   private String patente;
   private int matricula;
-  
+ 
 
   public Militar(String patente, int matricula){
     this.patente = patente;
     this.matricula = matricula;
+  }
+ 
+  public String toString(){
+      return ("Patente: ") + patente + ("Matricula: ") + matricula;
   }
   public String getpatente(){
     return patente;
@@ -13,10 +20,12 @@ abstract class Militar {
   public int getMatricula(){
     return matricula;
   }
-  
+ 
 
-  public abstract boolean podeProgredir();
+ public abstract boolean podeProgredir();
+ 
 }
+
 
 class MilitarAeronautica extends Militar{
   private double duraPatente;
@@ -26,6 +35,10 @@ class MilitarAeronautica extends Militar{
     super (patente, matricula);
     this.duraPatente = duraPatente;
     this.horaVoo = horaVoo;
+  }
+ 
+  public String toString(){
+      return  super.toString() + " Duração da Patente: " + duraPatente + " horas Voando: " + horaVoo;
   }
   public boolean podeProgredir(){
     if (duraPatente > 2 && horaVoo > 100){
@@ -43,6 +56,11 @@ class MilitarExercito extends Militar {
      this.ptcp = ptcp;
      this.pgg = pgg;
   }
+ 
+  public String toString(){
+      return  super.toString() + " Participou da Guerra: " + ptcp + " Ganhou a Guerra: " + pgg;
+  }
+ 
   public boolean podeProgredir(){
     if (ptcp == true && pgg == true){
       return true;
@@ -58,6 +76,11 @@ class MilitarMarinha extends Militar {
     super(patente,matricula);
     this.pceam = pceam;
   }
+ 
+  public String toString(){
+      return  super.toString() + " Consertou um avião em alto-mar: " + pceam;
+  }
+ 
   public boolean podeProgredir(){
     if (pceam == true){
       return true;
@@ -67,34 +90,31 @@ class MilitarMarinha extends Militar {
   }
 }
 
-class CadastroMilitar {
+class CadastroMilitar{
   private int qtd;
-  private  Militar[] militar;
+  private List<Militar> militar;
   public CadastroMilitar(int qtd){
     this.qtd = 0;
-    this.militar = new Militar[qtd]; 
-  }
+    this.militar =  new ArrayList<Militar>();
+}
 
-  public boolean addMilitar( Militar M){
-    if (qtd <= 10) return false;
-    
-      this.militar[qtd++] = M;
+  public boolean addMilitar( Militar m){
+   
+      this.militar.add(m);
       return true;
   }
-  pustr1blic void militarPodeProgredir(){
-    for(int i = 0; i < 10; ++i){
-      if (militar[i] != null){
-        if(militar[i].podeProgredir() == true){
-          System.out.println(militar[i]);
+ 
+  public void militarPodeProgredir(){
+    for(int i = 0; i < militar.size();   ++i){
+        if(militar.get(i).podeProgredir() == true){
+          System.out.println(militar.get(i));
         }
-      }
     }
   }
 }
 
-
-class Main {
-  public static void main(String[] args) {
+public class Main {
+    public static void main(String[] args) {
     CadastroMilitar c = new CadastroMilitar(10);
     MilitarAeronautica Ma = new MilitarAeronautica(15.8, 100.5, "Capitao",15546575);
     MilitarExercito Me = new MilitarExercito( "Capitao",15546575, true, false);
@@ -102,6 +122,7 @@ class Main {
     c.addMilitar(Ma);
     c.addMilitar(Mm);
     c.addMilitar(Me);
-    System.out.println("")
-  }
+    c.militarPodeProgredir();
+       
+    }
 }
