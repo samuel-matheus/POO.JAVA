@@ -81,6 +81,15 @@ class CadastroMilitar {
       this.militar[qtd++] = M;
       return true;
   }
+  pustr1blic void militarPodeProgredir(){
+    for(int i = 0; i < 10; ++i){
+      if (militar[i] != null){
+        if(militar[i].podeProgredir() == true){
+          System.out.println(militar[i]);
+        }
+      }
+    }
+  }
 }
 
 
@@ -90,8 +99,9 @@ class Main {
     MilitarAeronautica Ma = new MilitarAeronautica(15.8, 100.5, "Capitao",15546575);
     MilitarExercito Me = new MilitarExercito( "Capitao",15546575, true, false);
     MilitarMarinha Mm = new MilitarMarinha( "Capitao",15546575, true);
-    System.out.println("Militar Aeronautica pode progredir: " + Ma.podeProgredir());
-    System.out.println("Militar Exercito pode progredir: " + Me.podeProgredir());
-    System.out.println("Militar Marinha pode progredir: " + Mm.podeProgredir());
+    c.addMilitar(Ma);
+    c.addMilitar(Mm);
+    c.addMilitar(Me);
+    System.out.println("")
   }
 }
